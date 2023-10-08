@@ -1,0 +1,39 @@
+#effects {
+    position: relative;
+}
+
+#effects::before {
+    content: "";
+    position: absolute;
+    top: -8rem;
+    left: 22rem;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: #222C3A;
+    transition:  all 1s ease-in-out;
+}
+
+#effects::after {
+    content: "";
+    position: absolute;
+    top: -5rem;
+    left: 27rem;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: #C11F4D;
+    transition:  all 1s ease-in-out;
+}
+
+.effect3 {
+    position: absolute;
+    top: 31rem;
+    left: 4rem;
+}
+
+@media (max-width: 768px) {
+    #effects::before , #effects::after , .effect3 {
+        display: none
+    }
+}
