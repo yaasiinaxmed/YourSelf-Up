@@ -7,7 +7,7 @@ import toast from 'react-hot-toast';
 import SuccessModel from '../components/SuccessModel';
 
 function Challenge() {
-  const { challenges, tasks} = useFirebase();
+  const { challenges, tasks, user} = useFirebase();
   const params = useParams();
   const [currentChallenge, setCurrentChallenge] = useState([]);
   const [currentTasks, setCurrentTasks] = useState([]);
@@ -37,6 +37,10 @@ function Challenge() {
       setShowSuccess(false)
     }
   }, [taskfinished])
+
+  useEffect(() => {
+    document.title = `YourSelf up - Challenge | ${user.displayName} `
+  }, [])
   
   return (
     <div className='flex flex-col pb-8'>

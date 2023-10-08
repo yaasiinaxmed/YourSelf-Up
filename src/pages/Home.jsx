@@ -20,6 +20,10 @@ function Home() {
     
   }, [challenges]);
 
+  useEffect(() => {
+    document.title = `YourSelf up - Home | ${user.displayName} `
+  }, [])
+
 
   return (
     <div className="relative w-full h-screen flex flex-col pb-4">

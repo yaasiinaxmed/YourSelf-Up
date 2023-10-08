@@ -30,7 +30,7 @@ function Signup() {
     <div className="mt-5 md:mt-8 w-full flex flex-col items-center justify-center gap-5">
       <button 
        onClick={handleSignup}
-       className="flex items-center justify-center gap-2 py-3 px-6 rounded shadow-[0px_0px_3px_rgba(0,0,0,0.1)] transition-all hover:scale-105 ">
+       className="flex items-center justify-center gap-2 py-3 px-6 rounded border-2 border-[rgba(0,0,0,0.1)]  transition-all hover:scale-105 ">
         {/* google icon svg */}
         <svg
           width="36"
