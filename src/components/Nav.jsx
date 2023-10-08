@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import logo from "../assets/favicon-icon.png";
+import logo from "../assets/Favicon-icon.png";
 import { IoMdLogOut, IoMdWarning } from "react-icons/io";
 import { MdOutlineArrowBack } from "react-icons/md";
 import { useFirebase } from "../context/firebase";
