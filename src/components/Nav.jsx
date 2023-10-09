@@ -30,10 +30,8 @@ function Nav({ challenge, params }) {
             />
         </div>
       ));
-    } else {
-        return 
     }
-  }, [challenge]);
+  }, [challenge.id]);
 
   return (
     <div className="relative w-full py-8 sm:py-12 px-[6%] sm:px-[12%] bg-gradient-to-r from-secondaryColor to-primaryColor flex items-center justify-between rounded-br-[5rem]">
@@ -45,7 +43,7 @@ function Nav({ challenge, params }) {
         </figure>
         <div className="text-white ">
           <h1 className="font-bold text-2xl">{challenge.title}</h1>
-          <span>Your Challenge</span>
+          <span className="text-xs sm:text-sm">Created At : {new Date(challenge.createdAt?.seconds * 1000).toLocaleString()}</span>
         </div>
       </div>
       {/* Go back arrow action */}

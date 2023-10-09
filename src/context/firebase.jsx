@@ -18,7 +18,9 @@ import {
   query,
   setDoc,
   updateDoc,
+  serverTimestamp
 } from "firebase/firestore";
+import { getMessaging } from 'firebase/messaging'
 
 const FirebaseContext = createContext(null);
 
@@ -27,7 +29,7 @@ const firebaseConfig = {
   authDomain: import.meta.env.VITE_AUTH_DOMAIN,
   projectId: import.meta.env.VITE_PROJECT_ID,
   storageBucket: import.meta.env.VITE_STORAGE,
-  messagingSenderId: "419830511562",
+  messagingSenderId: import.meta.env.VITE_SenderId,
   appId: import.meta.env.VITE_APP_ID,
   measurementId: import.meta.env.VITE_ID,
 };
@@ -37,6 +39,7 @@ export const useFirebase = () => useContext(FirebaseContext);
 const firebaseApp = initializeApp(firebaseConfig);
 const firebaseAuth = getAuth(firebaseApp);
 const firestore = getFirestore(firebaseApp);
+export const messaging = getMessaging(firebaseApp)
 
 const googleProvider = new GoogleAuthProvider();
 
@@ -61,21 +64,27 @@ export const FirebaseProvider = (props) => {
   // log out
   const logOut = () => signOut(firebaseAuth);
 
-  // add challenge
-  const addChallenge = async (title, description) => {    
-     await addDoc(collection(firestore, "challenges"), {
-      title,
-      description,
-      userId: user.uid,
-      tasks: 21,
-    }).then((docRef) => {
+  // create challenge
+  const addChallenge = async (title, description) => {
+    try {
+      const docRef = await addDoc(collection(firestore, "challenges"), {
+        title,
+        description,
+        userId: user.uid,
+        tasks: 21,
+        createdAt: serverTimestamp(),
+      });
+
       setChallengeId(docRef.id);
-    })
+      AddTasks(docRef.id);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   // get challenges
   useEffect(() => {
-    const q = query(collection(firestore, "challenges"), orderBy("title"));
+    const q = query(collection(firestore, "challenges"), orderBy("createdAt"));
 
     const unSubscribe = onSnapshot(q, (querySnapshot) => {
       let challengesData = [];
@@ -90,111 +99,154 @@ export const FirebaseProvider = (props) => {
     return () => unSubscribe();
   }, []);
 
+  // tasks data
   const data = [
     {
+      count: 1,
       isTrue: false,
       isFalse: false,
       challengeId: challengeId,
+      createdAt: serverTimestamp(),
     },
     {
+      count: 2,
       isTrue: false,
       isFalse: false,
       challengeId: challengeId,
+      createdAt: serverTimestamp(),
     },
     {
+      count: 3,
       isTrue: false,
       isFalse: false,
       challengeId: challengeId,
+      createdAt: serverTimestamp(),
     },
     {
+      count: 4,
       isTrue: false,
       isFalse: false,
       challengeId: challengeId,
+      createdAt: serverTimestamp(),
     },
     {
+      count: 5,
       isTrue: false,
       isFalse: false,
       challengeId: challengeId,
+      createdAt: serverTimestamp(),
     },
     {
+      count: 6,
       isTrue: false,
       isFalse: false,
       challengeId: challengeId,
+      createdAt: serverTimestamp(),
     },
     {
+      count: 7,
       isTrue: false,
       isFalse: false,
       challengeId: challengeId,
+      createdAt: serverTimestamp(),
     },
     {
+      count: 8,
       isTrue: false,
       isFalse: false,
       challengeId: challengeId,
+      createdAt: serverTimestamp(),
     },
     {
+      count: 9,
       isTrue: false,
       isFalse: false,
       challengeId: challengeId,
+      createdAt: serverTimestamp(),
     },
     {
+      count: 10,
       isTrue: false,
       isFalse: false,
       challengeId: challengeId,
+      createdAt: serverTimestamp(),
     },
     {
+      count: 11,
       isTrue: false,
       isFalse: false,
       challengeId: challengeId,
+      createdAt: serverTimestamp(),
     },
     {
+      count: 12,
       isTrue: false,
       isFalse: false,
       challengeId: challengeId,
+      createdAt: serverTimestamp(),
     },
     {
+      count: 13,
       isTrue: false,
       isFalse: false,
       challengeId: challengeId,
+      createdAt: serverTimestamp(),
     },
     {
+      count: 14,
       isTrue: false,
       isFalse: false,
       challengeId: challengeId,
+      createdAt: serverTimestamp(),
     },
     {
+      count: 15,
       isTrue: false,
       isFalse: false,
       challengeId: challengeId,
+      createdAt: serverTimestamp(),
     },
     {
+      count: 16,
       isTrue: false,
       isFalse: false,
       challengeId: challengeId,
+      createdAt: serverTimestamp(),
     },
     {
+      count: 17,
       isTrue: false,
       isFalse: false,
       challengeId: challengeId,
+      createdAt: serverTimestamp(),
     },
     {
+      count: 18,
       isTrue: false,
       isFalse: false,
       challengeId: challengeId,
+      createdAt: serverTimestamp(),
     },
     {
+      count: 19,
       isTrue: false,
       isFalse: false,
       challengeId: challengeId,
+      createdAt: serverTimestamp(),
     },
     {
+      count: 20,
       isTrue: false,
       isFalse: false,
       challengeId: challengeId,
+      createdAt: serverTimestamp(),
     },
     {
+      count: 21,
       isTrue: false,
       isFalse: false,
       challengeId: challengeId,
+      createdAt: serverTimestamp(),
     },
   ];
 
@@ -204,27 +256,25 @@ export const FirebaseProvider = (props) => {
   };
 
   // create tasks
-  const AddTasks = async () => {
+  const AddTasks = async (challengeId) => {
     const collectionRef = collection(firestore, "tasks");
-  
+
     data.forEach((Task) => {
       const docRef = doc(collectionRef);
-      // Check for undefined challengeId property
-      if (Task.challengeId !== undefined) {
-        setDoc(docRef, Task);
-      } else {
-        console.log("Not found challenge id");
+
+      if (challengeId) {
+        setDoc(docRef, {
+          ...Task,
+          challengeId,
+          updatedAt: serverTimestamp(),
+        });
       }
     });
   };
 
-  useEffect(() => {
-    AddTasks();
-  }, [challengeId]);
-
   // get tasks
   useEffect(() => {
-    const q = query(collection(firestore, "tasks"));
+    const q = query(collection(firestore, "tasks"), orderBy('createdAt'));
 
     const unSubscribe = onSnapshot(q, (querySnapShot) => {
       let tasksArray = [];
@@ -243,6 +293,7 @@ export const FirebaseProvider = (props) => {
   const isTrueTask = async (task) => {
     await updateDoc(doc(firestore, "tasks", task.id), {
       isTrue: !task.isTrue,
+      updatedAt: serverTimestamp(),
     });
   };
 
@@ -250,6 +301,7 @@ export const FirebaseProvider = (props) => {
   const isFalseTask = async (task) => {
     await updateDoc(doc(firestore, "tasks", task.id), {
       isFalse: !task.isFalse,
+      updatedAt: serverTimestamp(),
     });
   };
 

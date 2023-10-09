@@ -4,7 +4,8 @@ import { AiOutlinePlus } from "react-icons/ai";
 import Challenges from "../components/Challenges";
 import Empty from "../components/Empty";
 import AddChallenge from "../components/AddChallenge";
-import { useFirebase } from "../context/firebase";
+import { useFirebase, messaging } from "../context/firebase";
+import { getToken } from "firebase/messaging";
 
 function Home() {
   const [showModel, setShowModel] = useState(false);
@@ -24,6 +25,21 @@ function Home() {
     document.title = `YourSelf up - Home | ${user.displayName} `
   }, [])
 
+  async function requestPermission() {
+    const permission = await Notification.requestPermission();
+    if (permission === "granted") {
+      await getToken(messaging, {
+        vapidKey:
+          "BMtgYtl2NUIAzLTiEzDPV0u-d7Z7B5yTOOYFZRuCbKI1KMSwf1Y9yJ_B3RFURzMh6r06MVJujOJsaL1541C1cH8",
+      });
+    } else {
+      console.log("Can not have token");
+    }
+  }
+
+  useEffect(() => {
+    requestPermission();
+  }, []);
 
   return (
     <div className="relative w-full h-screen flex flex-col pb-4">

@@ -12,6 +12,7 @@ function Challenge() {
   const [currentChallenge, setCurrentChallenge] = useState([]);
   const [currentTasks, setCurrentTasks] = useState([]);
   const [taskfinished, setTaskFinished] = useState([])
+  const [falseTasks, setFalseTasks] = useState([])
   const [showSuccess, setShowSuccess] = useState(false);
 
   useEffect(() => {
@@ -31,9 +32,16 @@ function Challenge() {
   }, [currentTasks]);
 
   useEffect(() => {
+    const task = currentTasks.filter((task) => task.isFalse === true);
+    setFalseTasks(task);
+
+  }, [currentTasks]);
+
+
+  useEffect(() => {
     if (taskfinished.length === 21) {
       setShowSuccess(true)
-    } else {
+    }else {
       setShowSuccess(false)
     }
   }, [taskfinished])
