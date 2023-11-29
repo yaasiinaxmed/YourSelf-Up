@@ -18,9 +18,11 @@ import {
   query,
   setDoc,
   updateDoc,
-  serverTimestamp
+  serverTimestamp,
 } from "firebase/firestore";
-import { getMessaging } from 'firebase/messaging'
+import { getMessaging } from "firebase/messaging";
+import { useGoogleAuthMutation } from "../store/api/AuthSlice";
+import toast from "react-hot-toast";
 
 const FirebaseContext = createContext(null);
 
@@ -37,17 +39,19 @@ const firebaseConfig = {
 export const useFirebase = () => useContext(FirebaseContext);
 
 const firebaseApp = initializeApp(firebaseConfig);
-const firebaseAuth = getAuth(firebaseApp);
+export const firebaseAuth = getAuth(firebaseApp);
 const firestore = getFirestore(firebaseApp);
-export const messaging = getMessaging(firebaseApp)
+export const messaging = getMessaging(firebaseApp);
 
-const googleProvider = new GoogleAuthProvider();
+export const googleProvider = new GoogleAuthProvider();
 
 export const FirebaseProvider = (props) => {
   const [user, setUser] = useState(null);
   const [challenges, setChallenges] = useState([]);
   const [tasks, setTasks] = useState([]);
   const [challengeId, setChallengeId] = useState(null);
+  const [googleAuth] = useGoogleAuthMutation();
+
 
   // get current user data
   useEffect(() => {
@@ -59,7 +63,33 @@ export const FirebaseProvider = (props) => {
   }, []);
 
   // sign up with google
-  const signUpWithGoogle = () => signInWithPopup(firebaseAuth, googleProvider);
+  const handleGoogle = async () => {
+    try {
+      const result = await signInWithPopup(firebaseAuth, googleProvider);
+      const { user } = result;
+      console.log("user:", user)
+
+      if (user) {
+        googleAuth({
+          avatar: user.photoURL,
+          name: user.displayName,
+          email: user.email,
+        })
+          .unwrap()
+          .then((result) => {
+            toast.success(result.data.message);
+          })
+          .catch((error) => {
+            // toast.error(error);
+            console.log("error sending data:", error);
+          });
+      } else {
+        console.log("User not found");
+      }
+    } catch (error) {
+      console.log("HandleGoogle error:", error);
+    }
+  };
 
   // log out
   const logOut = () => signOut(firebaseAuth);
@@ -274,7 +304,7 @@ export const FirebaseProvider = (props) => {
 
   // get tasks
   useEffect(() => {
-    const q = query(collection(firestore, "tasks"), orderBy('createdAt'));
+    const q = query(collection(firestore, "tasks"), orderBy("createdAt"));
 
     const unSubscribe = onSnapshot(q, (querySnapShot) => {
       let tasksArray = [];
@@ -308,7 +338,7 @@ export const FirebaseProvider = (props) => {
   return (
     <FirebaseContext.Provider
       value={{
-        signUpWithGoogle,
+        handleGoogle,
         logOut,
         user,
         addChallenge,

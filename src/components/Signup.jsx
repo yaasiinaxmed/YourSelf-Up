@@ -1,25 +1,43 @@
 import React, { useEffect, useState } from "react";
-import { useFirebase } from "../context/firebase";
+import { firebaseAuth, googleProvider } from "../context/firebase";
 import { useNavigate } from "react-router-dom";
+import { signInWithPopup } from "firebase/auth";
+import { useGoogleAuthMutation } from "../store/api/AuthSlice";
 import toast from "react-hot-toast";
 
 function Signup() {
-  const { signUpWithGoogle, user } = useFirebase()
-  const navigate = useNavigate()
+  const [googleAuth] = useGoogleAuthMutation();
   const [year, setYear] = useState()
+  const navigate = useNavigate()
 
-  const handleSignup = () => {
-    signUpWithGoogle().then(() => {
-      toast.success("Sign Up Was SuccessFully")
-      navigate("/Home")
-    })
-  }
+  // handle continue with google 
+  const handleGoogle = async () => {
+    try {
+      const result = await signInWithPopup(firebaseAuth, googleProvider);
+      const { user } = result;
+      console.log("user:", user)
 
-  useEffect(() => {
-    if(user) {
-      navigate("/Home")
+      if (user) {
+        googleAuth({
+          avatar: user.photoURL,
+          name: user.displayName,
+          email: user.email,
+        })
+          .unwrap()
+          .then((result) => {
+            toast.success(result.data.message);
+            navigate("/Home")
+          })
+          .catch((error) => {
+            console.log("error sending data:", error);
+          });
+      } else {
+        console.log("User not found");
+      }
+    } catch (error) {
+      console.log("HandleGoogle error:", error);
     }
-  }, [user])
+  };
 
   useEffect(() => {
     const date = new Date()
@@ -29,7 +47,7 @@ function Signup() {
   return (
     <div className="mt-5 md:mt-8 w-full flex flex-col items-center justify-center gap-5 z-10">
       <button 
-       onClick={handleSignup}
+       onClick={handleGoogle}
        className="bg-white flex items-center justify-center gap-2 py-3 px-6 rounded-2xl  shadow-[4px_12px_23px_rgba(0,0,0,0.1)] transition-all hover:scale-105 ">
         {/* google icon svg */}
         <svg
