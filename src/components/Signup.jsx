@@ -27,10 +27,10 @@ function Signup() {
   }, [])
 
   return (
-    <div className="mt-5 md:mt-8 w-full flex flex-col items-center justify-center gap-5">
+    <div className="mt-5 md:mt-8 w-full flex flex-col items-center justify-center gap-5 z-10">
       <button 
        onClick={handleSignup}
-       className="flex items-center justify-center gap-2 py-3 px-6 rounded  shadow-[0px_0px_5px_rgba(0,0,0,0.1)] transition-all hover:scale-105 ">
+       className="bg-white flex items-center justify-center gap-2 py-3 px-6 rounded-2xl  shadow-[4px_12px_23px_rgba(0,0,0,0.1)] transition-all hover:scale-105 ">
         {/* google icon svg */}
         <svg
           width="36"
@@ -57,7 +57,7 @@ function Signup() {
           />
         </svg>
         <span className="font-medium text-secondaryColor">
-          Sign Up with Google
+          Continue with Google
         </span>
       </button>
       {/* <div className="text-center text-xs md:text-lg text-secondaryColor font-medium">

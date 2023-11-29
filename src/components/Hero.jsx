@@ -45,7 +45,7 @@ function Hero() {
       </div>
 
       {/* image hero */}
-      <figure>
+      <figure className="z-10">
         <img src={hero} alt="" />
       </figure>
     </div>

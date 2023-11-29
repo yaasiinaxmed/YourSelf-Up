@@ -6,8 +6,6 @@ import Home from "./pages/Home";
 import Challenge from "./pages/Challenge";
 import ProtectedRoute from "./ProtectedRoute";
 import toast, { Toaster } from "react-hot-toast";
-import { messaging } from "./context/firebase";
-import { getToken } from "firebase/messaging";
 
 function App() {
 
