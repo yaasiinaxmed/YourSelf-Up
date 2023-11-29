@@ -1,6 +1,6 @@
 import React from "react";
 import Hero from "../components/Hero";
-import Signup from "../components/Signup";
+import ContinueWithGoogle from "../components/ContinueWithGoogle";
 
 function LandingPage() {
   return (
@@ -26,7 +26,7 @@ function LandingPage() {
       {/* <div className="absolute inset-0 bg-[url(https://play.tailwindcss.com//img/grid.svg)] bg-center [mask-image:linear-gradient(180deg,white,rgba(255,255,255,0))]"></div> */}
       <div className="w-full h-full flex items-center justify-center flex-col px-[6%] sm:px-[12%] ">
         <Hero />
-        <Signup />
+        <ContinueWithGoogle />
       </div>
     </div>
   );

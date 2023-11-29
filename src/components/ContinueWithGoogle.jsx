@@ -5,7 +5,7 @@ import { signInWithPopup } from "firebase/auth";
 import { useGoogleAuthMutation } from "../store/api/AuthSlice";
 import toast from "react-hot-toast";
 
-function Signup() {
+function ContinueWithGoogle() {
   const [googleAuth] = useGoogleAuthMutation();
   const [year, setYear] = useState()
   const navigate = useNavigate()
@@ -87,4 +87,4 @@ function Signup() {
   );
 }
 
-export default Signup;
+export default ContinueWithGoogle;
