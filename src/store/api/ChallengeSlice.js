@@ -36,8 +36,17 @@ export const challengeSlice = createApi({
                 body: newChallenge
             }),
             invalidatesTags: ["challengeApi"]
+        }), 
+
+        // delete challenge
+        deleteChallenge: builder.mutation({
+            query: (id) => ({
+                url: `/challenges/delete/${id}`,
+                method: "DELETE"
+            }),
+            invalidatesTags: ["challengeApi"]
         })
     })
 })
 
-export const {useGetChallengesQuery, useCreateChallengeMutation } = challengeSlice
+export const {useGetChallengesQuery, useCreateChallengeMutation, useDeleteChallengeMutation } = challengeSlice

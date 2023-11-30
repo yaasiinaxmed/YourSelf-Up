@@ -4,8 +4,21 @@ import { BiSolidTrash } from "react-icons/bi";
 import { useFirebase } from "../context/firebase";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
+import { useDeleteChallengeMutation } from "../store/api/challengeSlice";
 
 function Challenge({ challenge }) {
+
+  const [deleteChalenge] = useDeleteChallengeMutation()
+
+  const handleDelete = (id) => {
+    if(confirm("Are you sure you went to delete this challenge?")) {
+      deleteChalenge(id).unwrap().then((result) => {
+        toast.success(result.message)
+      }).catch((error) => {
+        console.log("error delete challenge:", error)
+      })
+    }
+  }
 
   return (
     <div
@@ -28,7 +41,7 @@ function Challenge({ challenge }) {
       {/* actions */}
       <div className="absolute bottom-0 left-0 w-full flex items-end justify-end p-4">
         <BiSolidTrash
-          onClick={() => handleDelete(challenge.id)}
+          onClick={() => handleDelete(challenge._id)}
           className="text-primaryColor"
         />
       </div>

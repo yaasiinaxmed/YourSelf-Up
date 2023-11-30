@@ -13,16 +13,16 @@ function Home() {
   const {data: challenges = []} = useGetChallengesQuery()
   const {data: user = {}} = useGetUserQuery()
 
-  const [data, setData] = useState([])
+  const [yourChallenges, setYourChallenges] = useState([])
 
   useEffect(() => {
-    const myChallenges = challenges.filter(
+    const filtaredChallenges = challenges.filter(
       (challenge) => challenge.user === user._id
     );
     
-    setData(myChallenges);
+    setYourChallenges(filtaredChallenges);
     
-  }, [challenges]);
+  }, [challenges, yourChallenges]);
 
   useEffect(() => {
     document.title = `YourSelf up - Home | ${user.name} `
@@ -42,7 +42,7 @@ function Home() {
         <AiOutlinePlus size={30} />
       </button>
       {/* Challenges */}
-      {data.length === 0 ? <Empty /> : <Challenges challenges={data}  />}
+      {yourChallenges.length === 0 ? <Empty /> : <Challenges challenges={yourChallenges}  />}
 
       {/* Add challenge Model */}
       <AddChallenge showModel={showModel} setShowModel={setShowModel} />
