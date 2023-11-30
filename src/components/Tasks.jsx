@@ -10,17 +10,14 @@ const style = {
 
 function Tasks({ task, count }) {
 
-
-  const { isTrueTask, isFalseTask } = useFirebase()
-
   return (
     <div
       className={`relative flex items-center group justify-center p-12 bg-white w-full sm:w-[180px] h-[120px] rounded
        border-2 transition-all duration-150 ${style.bgHover} ${
-         task.isTrue !== false ? style.bgSuccess : ""
+         task?.isTrue !== false ? style.bgSuccess : ""
        } ${task.isFalse !== false ? style.bgFailed : ""}  `}
     >
-      <h2 className="text-2xl font-semibold  ">{task.count}</h2>
+      <h2 className="text-2xl font-semibold  ">{count + 1}</h2>
       {/* actions */}
       <div
         className={`absolute top-0 right-0 w-full  group-hover:flex ${

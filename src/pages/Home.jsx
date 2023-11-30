@@ -4,23 +4,29 @@ import { AiOutlinePlus } from "react-icons/ai";
 import Challenges from "../components/Challenges";
 import Empty from "../components/Empty";
 import AddChallenge from "../components/AddChallenge";
+import { useGetChallengesQuery } from "../store/api/challengeSlice";
+import { useGetUserQuery } from "../store/api/UserSlice";
 
 function Home() {
   const [showModel, setShowModel] = useState(false);
 
-  const [data, setData] = useState([]);
+  const {data: challenges = []} = useGetChallengesQuery()
+  const {data: user = {}} = useGetUserQuery()
 
-  // useEffect(() => {
-  //   const myChallenges = challenges.filter(
-  //     (challenge) => challenge.userId === user.uid
-  //   );
-  //   setData(myChallenges);
+  const [data, setData] = useState([])
+
+  useEffect(() => {
+    const myChallenges = challenges.filter(
+      (challenge) => challenge.user === user._id
+    );
     
-  // }, [challenges]);
+    setData(myChallenges);
+    
+  }, [challenges]);
 
-  // useEffect(() => {
-  //   document.title = `YourSelf up - Home | ${user.displayName} `
-  // }, [])
+  useEffect(() => {
+    document.title = `YourSelf up - Home | ${user.name} `
+  }, [])
 
   return (
     <div className="relative w-full h-screen flex flex-col pb-4">
@@ -36,7 +42,7 @@ function Home() {
         <AiOutlinePlus size={30} />
       </button>
       {/* Challenges */}
-      {/* {data.length === 0 ? <Empty /> : <Challenges challenges={data}  />} */}
+      {data.length === 0 ? <Empty /> : <Challenges challenges={data}  />}
 
       {/* Add challenge Model */}
       <AddChallenge showModel={showModel} setShowModel={setShowModel} />

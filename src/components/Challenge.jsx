@@ -6,25 +6,6 @@ import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 
 function Challenge({ challenge }) {
-  const { deleteChallenge, tasks } = useFirebase();
-  const [currentTasks, setCurrentTasks] = useState([]);
-  const [checkTasks, setCheckTasks] = useState([]);
-
-  useEffect(() => {
-    const task = tasks.filter((task) => task.challengeId === challenge.id);
-    setCurrentTasks(task);
-  }, [tasks]);
-
-  useEffect(() => {
-    const task = currentTasks.filter((task) => task.isTrue === true);
-    setCheckTasks(task);
-  }, [currentTasks]);
-
-  const handleDelete = (id) => {
-    deleteChallenge(id).then(() =>
-      toast.success("Challenge deleted successFully")
-    );
-  };
 
   return (
     <div
@@ -33,11 +14,11 @@ function Challenge({ challenge }) {
     >
       {/* content */}
       <Link
-        to={`/Challenge/${challenge.id}`}
+        to={`/Challenge/${challenge._id}`}
         className="flex items-center justify-center flex-col gap-2"
       >
         <span className="text-gray-500 text-lg">
-          {checkTasks.length}/{challenge.tasks}
+         {challenge.tasks.length}
         </span>
         <h4 className="text-4xl text-primaryColor font-bold">Days</h4>
         <h3 className="text-secondaryColor text-lg font-medium">

@@ -11,7 +11,7 @@ function Nav({ challenge, params }) {
   const { logOut } = useFirebase();
 
   useEffect(() => {
-    if (challenge.id === params.id) {
+    if (challenge._id === params.id) {
       toast.custom((t) => (
         <div
           className={`bg-white px-6 py-4 shadow-md rounded-full ${
@@ -31,7 +31,7 @@ function Nav({ challenge, params }) {
         </div>
       ));
     }
-  }, [challenge.id]);
+  }, [challenge._id]);
 
   return (
     <div className="relative w-full py-8 sm:py-12 px-[6%] sm:px-[12%] bg-gradient-to-r from-secondaryColor to-primaryColor flex items-center justify-between rounded-br-[5rem]">
@@ -42,8 +42,8 @@ function Nav({ challenge, params }) {
           <img src={logo} alt="" className="w-full rounded-full" />
         </figure>
         <div className="text-white ">
-          <h1 className="font-bold text-2xl">{challenge.title}</h1>
-          <span className="text-xs sm:text-sm">Created At : {new Date(challenge.createdAt?.seconds * 1000).toLocaleString()}</span>
+          <h1 className="font-bold text-2xl">{challenge?.title}</h1>
+          <span className="text-xs sm:text-sm">Created At : {new Date(challenge?.createdAt).toLocaleString()}</span>
         </div>
       </div>
       {/* Go back arrow action */}

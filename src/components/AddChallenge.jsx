@@ -5,9 +5,10 @@ import * as Yup from "yup";
 import { useFirebase } from "../context/firebase";
 import toast from "react-hot-toast";
 import { IoCloseOutline } from "react-icons/io5";
+import { useCreateChallengeMutation } from "../store/api/challengeSlice";
 
 function AddChallenge({ showModel, setShowModel }) {
-  const { addChallenge } = useFirebase();
+  const [ addChallenge ] = useCreateChallengeMutation();
 
   const validationSchema = Yup.object({
     title: Yup.string().required("Enter Title Challenge"),
@@ -23,7 +24,7 @@ function AddChallenge({ showModel, setShowModel }) {
     const title = e.title;
     const description = e.description;
 
-    addChallenge(title, description)
+    addChallenge({title, description})
       .then(() => {
         setShowModel(false);
         toast.success("Challenge was created!");

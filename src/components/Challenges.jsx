@@ -12,7 +12,7 @@ function Challenges({ challenges , setShowSuccess}) {
       {/* challenges */}
       <div className="flex flex-wrap gap-8">
         {challenges.map((challenge) => (
-          <Challenge challenge={challenge} key={challenge.id} setShowSuccess={setShowSuccess}/>
+          <Challenge challenge={challenge} key={challenge._id} setShowSuccess={setShowSuccess}/>
         ))}
       </div>
     </div>

@@ -19,7 +19,7 @@ function Navbar({setShowModel}) {
         {/* user info */}
         <div className='flex items-center gap-3'>
             <figure className='border-[3px] border-primaryColor w-16 rounded-full overflow-hidden'>
-                <img src={user.avatar} alt="" className='w-full rounded-full' />
+                <img src={user?.avatar} alt="" className='w-full rounded-full' />
             </figure>
             <div className='text-white '>
                 <h1 className='font-bold text-2xl'>{user.name}</h1>
