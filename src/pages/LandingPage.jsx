@@ -1,8 +1,19 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Hero from "../components/Hero";
 import ContinueWithGoogle from "../components/ContinueWithGoogle";
+import Cookies from "js-cookie";
+import {useNavigate} from "react-router-dom"
 
 function LandingPage() {
+  const navigate = useNavigate()
+  const token = Cookies.get("token")
+
+  useEffect(() => {
+    if(token) {
+      navigate('/Home')
+    }
+  }, [token])
+  
   return (
     <div className="w-full relative flex min-h-screen flex-col justify-center overflow-hidden bg-white py-6 sm:py-12">
       <img

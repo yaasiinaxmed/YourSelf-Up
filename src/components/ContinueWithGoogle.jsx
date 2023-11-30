@@ -3,7 +3,6 @@ import { firebaseAuth, googleProvider } from "../context/firebase";
 import { useNavigate } from "react-router-dom";
 import { signInWithPopup } from "firebase/auth";
 import { useGoogleAuthMutation } from "../store/api/AuthSlice";
-import toast from "react-hot-toast";
 
 function ContinueWithGoogle() {
   const [googleAuth] = useGoogleAuthMutation();
@@ -15,7 +14,6 @@ function ContinueWithGoogle() {
     try {
       const result = await signInWithPopup(firebaseAuth, googleProvider);
       const { user } = result;
-      console.log("user:", user)
 
       if (user) {
         googleAuth({
@@ -25,7 +23,6 @@ function ContinueWithGoogle() {
         })
           .unwrap()
           .then((result) => {
-            toast.success(result.data.message);
             navigate("/Home")
           })
           .catch((error) => {

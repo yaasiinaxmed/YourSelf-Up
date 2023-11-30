@@ -1,12 +1,12 @@
 import React from 'react'
-import { useFirebase } from './context/firebase'
 import { Navigate, Outlet, useLocation } from 'react-router-dom'
+import Cookies from 'js-cookie';
 
 function ProtectedRoute() {
     const location = useLocation();
-    const { user } = useFirebase()
+    const token = Cookies.get("token")
 
-    if(user) {
+    if(token) {
         return <Outlet/>
     } else {
         return <Navigate to='/' state={{from: location}} replace />
