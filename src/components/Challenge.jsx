@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { BiSolidTrash } from "react-icons/bi";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
-import { useDeleteChallengeMutation } from "../store/api/challengeSlice";
+import { useDeleteChallengeMutation } from "../store/api/ChallengeSlice";
 
 function Challenge({ challenge }) {
 
