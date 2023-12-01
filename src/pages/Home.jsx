@@ -28,8 +28,6 @@ function Home() {
     document.title = `YourSelf up - Home | ${isLoading ? "Loading..." : user.name}`
   }, [user])
 
-  console.log("user:", user)
-
   return (
     <div className="relative w-full h-screen flex flex-col pb-4">
 
