@@ -7,6 +7,7 @@ import { useDeleteChallengeMutation } from "../store/api/challengeSlice";
 function Challenge({ challenge }) {
 
   const [deleteChalenge] = useDeleteChallengeMutation()
+  const [doneTasks, setDoneTasks] = useState([])
 
   const handleDelete = (id) => {
     if(confirm("Are you sure you went to delete this challenge?")) {
@@ -17,6 +18,11 @@ function Challenge({ challenge }) {
       })
     }
   }
+
+  useEffect(() => {
+    const filteredTasks = challenge.tasks.filter((task) => task.isTrue === true)
+    setDoneTasks(filteredTasks)
+  }, [challenge])
 
   return (
     <div
@@ -29,7 +35,7 @@ function Challenge({ challenge }) {
         className="flex items-center justify-center flex-col gap-2"
       >
         <span className="text-gray-500 text-lg">
-         {challenge.tasks.length}
+         {doneTasks.length} / {challenge.tasks.length}
         </span>
         <h4 className="text-4xl text-primaryColor font-bold">Days</h4>
         <h3 className="text-secondaryColor text-lg font-medium">

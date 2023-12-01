@@ -42,7 +42,7 @@ function Home() {
         <AiOutlinePlus size={30} />
       </button>
       {/* Challenges */}
-      {yourChallenges.length === 0 ? <Empty /> : <Challenges challenges={yourChallenges}  />}
+      {yourChallenges.length === 0 ? <Empty /> : <Challenges challenges={yourChallenges}/>}
 
       {/* Add challenge Model */}
       <AddChallenge showModel={showModel} setShowModel={setShowModel} />

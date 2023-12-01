@@ -14,13 +14,31 @@ function Challenge() {
   const params = useParams();
   const [currentChallenge, setCurrentChallenge] = useState([]);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [donedTasks, setDonedTasks] = useState([])
+  const [failedTasks, setFailedTasks] = useState([])
 
+  // find current Challenge
   useEffect(() => {
     const findChallenge = challenges?.find(
       (challenge) => challenge?._id === params.id
     );
     setCurrentChallenge(findChallenge);
   }, [challenges ,params.id]);
+
+  // filter complated tasks
+  useEffect(() => {
+    const filteredTasks = currentChallenge?.tasks?.filter((task) => task.isTrue === true)
+    setDonedTasks(filteredTasks)
+  }, [currentChallenge.tasks])
+
+  // condition show success
+  useEffect(() => {
+    if (donedTasks.length === 21) {
+      setShowSuccess(true)
+    }else {
+      setShowSuccess(false)
+    }
+  }, [donedTasks, failedTasks])
 
   useEffect(() => {
     document.title = `YourSelf up - Challenge | ${user.name} `;

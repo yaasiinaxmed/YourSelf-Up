@@ -1,6 +1,7 @@
 import React from "react";
 import { AiFillCloseCircle, AiFillCheckCircle } from "react-icons/ai";
-import { useFirebase } from "../context/firebase";
+import { useUpdateIsFalseMutation, useUpdateIsTrueMutation } from "../store/api/challengeSlice";
+import { useParams } from "react-router-dom";
 
 const style = {
   bgHover: `hover:bg-[#222c3a2f]  hover:border-secondaryColor hover:text-secondaryColor text-secondaryColor`,
@@ -9,6 +10,18 @@ const style = {
 };
 
 function Tasks({ task, count }) {
+  const [updateIsTrue] = useUpdateIsTrueMutation()
+  const [updateIsFalse] = useUpdateIsFalseMutation()
+  const {id} = useParams()
+
+  // update isTrue
+  const handleIsTrue = (task) => {
+    updateIsTrue({challengeID: id, taskID: task._id, isTrue: task.isTrue}).unwrap()
+  }
+
+  const handleIsFalse = (task) => {
+    updateIsFalse({challengeID: id, taskID: task._id, isFalse: task.isFalse}).unwrap()
+  }
 
   return (
     <div
@@ -25,7 +38,7 @@ function Tasks({ task, count }) {
         } items-center justify-between p-3 text-lg`}
       >
         <span
-          onClick={() => isFalseTask(task)}
+          onClick={() => handleIsFalse(task)}
           className={`cursor-pointer ${
             task.isTrue === false ? "block" : "hidden"
           }`}
@@ -33,7 +46,7 @@ function Tasks({ task, count }) {
           <AiFillCloseCircle />
         </span>
         <span
-          onClick={() => isTrueTask(task)}
+          onClick={() => handleIsTrue(task)}
           className={`cursor-pointer ${
             task.isFalse === false ? "block" : "hidden"
           } `}

@@ -45,8 +45,28 @@ export const challengeSlice = createApi({
                 method: "DELETE"
             }),
             invalidatesTags: ["challengeApi"]
+        }),
+
+        // update challenge with task isTrue
+        updateIsTrue: builder.mutation({
+            query: ({challengeID, taskID, isTrue}) => ({
+                url: `challenges/${challengeID}/task/${taskID}/isTrue`,
+                method: "PUT",
+                body: {isTrue}
+            }),
+            invalidatesTags: ["challengeApi"]
+        }),
+
+         // update challenge with task isFalse
+         updateIsFalse: builder.mutation({
+            query: ({challengeID, taskID, isFalse}) => ({
+                url: `challenges/${challengeID}/task/${taskID}/isFalse`,
+                method: "PUT",
+                body: {isFalse}
+            }),
+            invalidatesTags: ["challengeApi"]
         })
     })
 })
 
-export const {useGetChallengesQuery, useCreateChallengeMutation, useDeleteChallengeMutation } = challengeSlice
+export const {useGetChallengesQuery, useCreateChallengeMutation, useDeleteChallengeMutation, useUpdateIsTrueMutation, useUpdateIsFalseMutation } = challengeSlice
