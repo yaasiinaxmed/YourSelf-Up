@@ -11,7 +11,7 @@ function Home() {
   const [showModel, setShowModel] = useState(false);
 
   const {data: challenges = []} = useGetChallengesQuery()
-  const {data: user = {}} = useGetUserQuery()
+  const {data: user = {}, isLoading} = useGetUserQuery()
 
   const [yourChallenges, setYourChallenges] = useState([])
 
@@ -25,8 +25,10 @@ function Home() {
   }, [challenges, yourChallenges]);
 
   useEffect(() => {
-    document.title = `YourSelf up - Home | ${user?.name} `
-  }, [])
+    document.title = `YourSelf up - Home | ${isLoading ? "Loading..." : user.name}`
+  }, [user])
+
+  console.log("user:", user)
 
   return (
     <div className="relative w-full h-screen flex flex-col pb-4">
