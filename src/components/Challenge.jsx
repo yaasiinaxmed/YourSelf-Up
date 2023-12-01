@@ -1,7 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { BiSolidTrash } from "react-icons/bi";
-
-import { useFirebase } from "../context/firebase";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
 import { useDeleteChallengeMutation } from "../store/api/challengeSlice";

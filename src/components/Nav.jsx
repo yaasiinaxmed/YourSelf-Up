@@ -8,10 +8,9 @@ import toast from "react-hot-toast";
 
 import { IoCloseOutline } from "react-icons/io5";
 function Nav({ challenge, params }) {
-  const { logOut } = useFirebase();
 
   useEffect(() => {
-    if (challenge._id === params.id) {
+    if (challenge?._id === params.id) {
       toast.custom((t) => (
         <div
           className={`bg-white px-6 py-4 shadow-md rounded-full ${
@@ -31,7 +30,7 @@ function Nav({ challenge, params }) {
         </div>
       ));
     }
-  }, [challenge._id]);
+  }, [challenge?._id]);
 
   return (
     <div className="relative w-full py-8 sm:py-12 px-[6%] sm:px-[12%] bg-gradient-to-r from-secondaryColor to-primaryColor flex items-center justify-between rounded-br-[5rem]">
@@ -55,7 +54,6 @@ function Nav({ challenge, params }) {
       </Link>
       {/* LogOut */}
       <div
-        onClick={logOut}
         className="absolute top-3 right-8 text-white text-2xl cursor-pointer "
       >
         <IoMdLogOut />

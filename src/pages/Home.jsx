@@ -25,7 +25,7 @@ function Home() {
   }, [challenges, yourChallenges]);
 
   useEffect(() => {
-    document.title = `YourSelf up - Home | ${user.name} `
+    document.title = `YourSelf up - Home | ${user?.name} `
   }, [])
 
   return (

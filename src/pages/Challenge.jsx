@@ -16,11 +16,11 @@ function Challenge() {
   const [showSuccess, setShowSuccess] = useState(false);
 
   useEffect(() => {
-    const challenge = challenges.find(
-      (challenge) => challenge?._id !== params.id
+    const findChallenge = challenges?.find(
+      (challenge) => challenge?._id === params.id
     );
-    setCurrentChallenge(challenge);
-  }, [challenges, params.id]);
+    setCurrentChallenge(findChallenge);
+  }, [challenges ,params.id]);
 
   useEffect(() => {
     document.title = `YourSelf up - Challenge | ${user.name} `;
