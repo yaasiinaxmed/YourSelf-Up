@@ -28,7 +28,7 @@ function Challenge() {
   useEffect(() => {
     const filteredTasks = currentChallenge?.tasks?.filter((task) => task.isTrue === true)
     setDonedTasks(filteredTasks)
-  }, [currentChallenge.tasks])
+  }, [currentChallenge?.tasks])
 
   // condition show success
   useEffect(() => {

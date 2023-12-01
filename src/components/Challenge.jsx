@@ -20,7 +20,7 @@ function Challenge({ challenge }) {
   }
 
   useEffect(() => {
-    const filteredTasks = challenge?.tasks.filter((task) => task.isTrue === true)
+    const filteredTasks = challenge?.tasks?.filter((task) => task?.isTrue === true)
     setDoneTasks(filteredTasks)
   }, [challenge])
 
@@ -31,21 +31,21 @@ function Challenge({ challenge }) {
     >
       {/* content */}
       <Link
-        to={`/Challenge/${challenge._id}`}
+        to={`/Challenge/${challenge?._id}`}
         className="flex items-center justify-center flex-col gap-2"
       >
         <span className="text-gray-500 text-lg">
-         {doneTasks.length} / {challenge.tasks.length}
+         {doneTasks.length} / {challenge?.tasks.length}
         </span>
         <h4 className="text-4xl text-primaryColor font-bold">Days</h4>
         <h3 className="text-secondaryColor text-lg font-medium">
-          {challenge.title}
+          {challenge?.title}
         </h3>
       </Link>
       {/* actions */}
       <div className="absolute bottom-0 left-0 w-full flex items-end justify-end p-4">
         <BiSolidTrash
-          onClick={() => handleDelete(challenge._id)}
+          onClick={() => handleDelete(challenge?._id)}
           className="text-primaryColor"
         />
       </div>
