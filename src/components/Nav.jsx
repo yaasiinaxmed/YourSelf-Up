@@ -2,12 +2,18 @@ import React, { useEffect } from "react";
 import logo from "../assets/Favicon-icon.png";
 import { IoMdLogOut, IoMdWarning } from "react-icons/io";
 import { MdOutlineArrowBack } from "react-icons/md";
-import { useFirebase } from "../context/firebase";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-
 import { IoCloseOutline } from "react-icons/io5";
+import Cookies from "js-cookie";
+
 function Nav({ challenge, params }) {
+  const navigate = useNavigate()
+
+  const logOut = () => {
+    Cookies.remove("token")
+    navigate("/")
+  }
 
   useEffect(() => {
     if (challenge?._id === params.id) {
@@ -32,6 +38,8 @@ function Nav({ challenge, params }) {
     }
   }, [challenge?._id]);
 
+  
+
   return (
     <div className="relative w-full py-8 sm:py-12 px-[6%] sm:px-[12%] bg-gradient-to-r from-secondaryColor to-primaryColor flex items-center justify-between rounded-br-[5rem]">
 
@@ -54,6 +62,7 @@ function Nav({ challenge, params }) {
       </Link>
       {/* LogOut */}
       <div
+        onClick={logOut}
         className="absolute top-3 right-8 text-white text-2xl cursor-pointer "
       >
         <IoMdLogOut />

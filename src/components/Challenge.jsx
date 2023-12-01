@@ -20,7 +20,7 @@ function Challenge({ challenge }) {
   }
 
   useEffect(() => {
-    const filteredTasks = challenge.tasks.filter((task) => task.isTrue === true)
+    const filteredTasks = challenge?.tasks.filter((task) => task.isTrue === true)
     setDoneTasks(filteredTasks)
   }, [challenge])
 
