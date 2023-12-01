@@ -1,6 +1,6 @@
 import React from "react";
 import { AiFillCloseCircle, AiFillCheckCircle } from "react-icons/ai";
-import { useUpdateIsFalseMutation, useUpdateIsTrueMutation } from "../store/api/challengeSlice";
+import { useUpdateIsFalseMutation, useUpdateIsTrueMutation } from "../store/api/ChallengeSlice";
 import { useParams } from "react-router-dom";
 
 const style = {

@@ -1,11 +1,9 @@
 import React, { useEffect } from "react";
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import * as Yup from "yup";
-
-import { useFirebase } from "../context/firebase";
 import toast from "react-hot-toast";
 import { IoCloseOutline } from "react-icons/io5";
-import { useCreateChallengeMutation } from "../store/api/challengeSlice";
+import { useCreateChallengeMutation } from "../store/api/ChallengeSlice";
 
 function AddChallenge({ showModel, setShowModel }) {
   const [ addChallenge ] = useCreateChallengeMutation();

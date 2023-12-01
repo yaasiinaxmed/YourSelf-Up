@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from "react";
 import Nav from "../components/Nav";
-import { useFirebase } from "../context/firebase";
 import { useParams } from "react-router-dom";
 import Tasks from "../components/Tasks";
 import toast from "react-hot-toast";
 import SuccessModel from "../components/SuccessModel";
-import { useGetChallengesQuery } from "../store/api/challengeSlice";
+import { useGetChallengesQuery } from "../store/api/ChallengeSlice";
 import { useGetUserQuery } from "../store/api/UserSlice";
 
 function Challenge() {
@@ -33,12 +32,12 @@ function Challenge() {
 
   // condition show success
   useEffect(() => {
-    if (donedTasks.length === 21) {
+    if (donedTasks?.length === 21) {
       setShowSuccess(true)
     }else {
       setShowSuccess(false)
     }
-  }, [donedTasks, failedTasks])
+  }, [donedTasks])
 
   useEffect(() => {
     document.title = `YourSelf up - Challenge | ${user.name} `;

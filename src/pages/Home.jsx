@@ -4,7 +4,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 import Challenges from "../components/Challenges";
 import Empty from "../components/Empty";
 import AddChallenge from "../components/AddChallenge";
-import { useGetChallengesQuery } from "../store/api/challengeSlice";
+import { useGetChallengesQuery } from "../store/api/ChallengeSlice";
 import { useGetUserQuery } from "../store/api/UserSlice";
 
 function Home() {
