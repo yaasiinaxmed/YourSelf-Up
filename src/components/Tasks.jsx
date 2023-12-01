@@ -16,7 +16,7 @@ function Tasks({ task, count }) {
 
   // update isTrue
   const handleIsTrue = (task) => {
-    updateIsTrue({challengeID: id, taskID: task._id, isTrue: task.isTrue}).unwrap()
+    updateIsTrue({challengeID: id, taskID: task._id, isTrue: task.isTrue})
   }
 
   const handleIsFalse = (task) => {

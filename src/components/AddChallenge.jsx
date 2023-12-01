@@ -38,7 +38,7 @@ function AddChallenge({ showModel, setShowModel }) {
     <div
       className={`${
         showModel === true ? "flex" : "hidden"
-      } fixed top-0 left-0 w-full h-screen bg-[#0000002a] items-center justify-center p-8`}
+      } fixed top-0 left-0 w-full h-screen bg-[#0000002a] backdrop-blur items-center justify-center p-8`}
     >
       <Formik
         initialValues={initialValues}

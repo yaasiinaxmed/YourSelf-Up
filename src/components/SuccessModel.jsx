@@ -5,7 +5,7 @@ import { IoCloseOutline } from "react-icons/io5";
 function SuccessModel({showSuccess, setShowSuccess}) {
   return (
     <div
-      className={`${showSuccess === true ? 'flex' : 'hidden'} fixed top-0 left-0 w-full h-screen bg-[#0000002a] items-center !justify-center p-5 sm:p-8`}
+      className={`${showSuccess === true ? 'flex' : 'hidden'} fixed top-0 left-0 w-full h-screen bg-[#0000002a] backdrop-blur items-center !justify-center p-5 sm:p-8`}
     >
       <div className="relative bg-white p-7 pb-9 w-full sm:w-3/5 xl:w-3/12 flex items-center justify-center flex-col rounded-lg shadow z-40">
         <figure className="w-40">
